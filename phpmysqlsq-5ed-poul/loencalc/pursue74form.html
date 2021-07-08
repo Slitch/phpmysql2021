@@ -1,0 +1,59 @@
+<!DOCTYPE html> 
+<html lang="da-DK">
+<head>
+    <meta charset=utf-8 />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Løn beregner - Kontrollere om din udbetalte løn stemmer overens. Beregn løn i forhold til atp, pension, bidrag, trækprocent, osv">
+    <meta name="keywords" content="løn, bruttoløn, brutto, nettoløn, netto, atp, pension, Arbejdsmarkedsbidrag, Arbejdsmarkedets, Tillægspension, udbetalling, udbetalt, udegn, lommeregner, hvad får jeg i løn, hvad får jeg udbetalt, månedsløn, skattetræk, trækprocent ">
+    <meta name="author" content="Poul Lynge Larsen">
+    <title>Løn beregner - prototype</title>
+    <style>
+    html {
+        background-color: #00ccff;
+        font-size: 20px;
+        font-family: sans-serif;
+    }
+    body {margin: 30px;}
+</style> 
+</head>
+<body>
+<h1>Løn beregner</h1>
+<p>Skriv hele tal uden komma.</p>
+
+<!-- FORM START -->
+<form action="form_feedback.php" method="post"></form>
+  <table>
+    <tr>
+      <td><label for="input_bruttoloen">Bruttoløn :</label></td>
+      <td><input type="text" name="input_bruttoloen" value=""> Kr.</td>
+    </tr>
+    <tr>
+      <td><label for="input_fradrag">Fradrag :</label></td>
+      <td><input type="text" name="input_fradrag" value=""> Kr.</td>
+    </tr>
+    <tr>
+      <td><label for="input_am_bidrag_pro"><abbr title="Arbejdsmarkedets">AM</abbr> bidrag :</label></td>
+      <td><input type="text" name="input_am_bidrag_pro" value="8"> %</td>
+    </tr>
+    <tr>
+      <td><label for="input_am_pension_pro"><abbr title="Arbejdsmarkedets">AM</abbr> pension :</label></td>
+      <td><input type="text" name="input_am_pension_pro" value="4"> %</td>
+    </tr>
+    <tr>
+      <td><label for="input_atp_pension"><abbr title="Arbejdsmarkedets Tillægs Pension">ATP</abbr> pension :</label></td>
+      <td><input type="text" name="input_atp_pension" value="90"> Kr.</td>
+    </tr>
+    <tr>
+      <td><label for="input_traekprocent">Trækprocent :</label></td>
+      <td><input type="text" name="input_traekprocent" value="37"> %</td>
+    </tr>
+  </table>
+<input type="submit" name="submit" value="Beregn løn til udbetaling" />
+</form>
+
+
+<p>Undre du dig over hvofor beløb er rundet ned til nærmeste hele kroner, fortæller loven følgende:</p>
+<h3>Kildeskatteloven: § 62. Stk. 4. </h3>
+<p>Af det beløb, der efter foranstående skal udbetales den skattepligtige, udbetales kun det hele kronebeløb.</p>
+</body>
+</html>

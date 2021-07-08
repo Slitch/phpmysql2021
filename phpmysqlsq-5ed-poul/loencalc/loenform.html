@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="da-DK">
+<head>
+	<meta charset="utf-8">
+	<title>Simple HTML Form</title>
+	<style type="number/css">
+		label {
+			font-weight: bold;
+			color: #300ACC;
+		}
+	</style>
+</head>
+<body>
+<!-- Script 2.1 - form.html -->
+
+<form action="loenform_handler.php" method="post">
+
+  <table>
+    <tr>
+      <td><label for="input_bruttoloen">Bruttoløn :</label></td>
+      <td><input type="number" name="input_bruttoloen" value=""> Kr.</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><label for="input_fradrag">Fradrag :</label></td>
+      <td><input type="number" name="input_fradrag" value=""> Kr.</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><label for="input_am_bidrag_pro"><abbr title="Arbejdsmarkedets">AM</abbr> bidrag :</label></td>
+      <td><input type="number" name="input_am_bidrag_pro" value="8"> %</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><label for="input_am_pension_pro"><abbr title="Arbejdsmarkedets">AM</abbr> pension :</label></td>
+      <td><input type="number" name="input_am_pension_pro" value="4"> %</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><label for="input_atp_pension"><abbr title="Arbejdsmarkedets Tillægs Pension">ATP</abbr> pension :</label></td>
+      <td><input type="number" name="input_atp_pension" value="90"> Kr.</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td><label for="input_traekprocent">Trækprocent :</label></td>
+      <td><input type="number" name="input_traekprocent" value="37"> %</td>
+      <td></td>
+    </tr>
+  </table>
+<input type="submit" name="submit" value="Udregn min løb">
+
+</form>
+
+</body>
+</html>

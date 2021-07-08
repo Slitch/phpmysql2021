@@ -1,0 +1,887 @@
+# Visual Quickpro Guide: PHP and MySQL for Dynamic Web Sites Fifth Edition
+## Chapter 1 - Review and Pursue
+## Review
+
+✅ * What tags are used to surround PHP code?  <?php  CodeCodeCode!  ?>
+
+✅ * What extension should a PHP file have?  filename.php
+
+✅ * What does a page’s encoding refer to? what characters can be represented (Language) 
+
+✅ * What impact does the encoding have on the page? If you don’t use utf-8 you’ll likely see odd characters when you view the page in a browser especially if you use non-traditional characters like russian, Danish æøå, Sweden öä, etc.
+
+✅ * What PHP functions, or language constructs, can you use to send data to the browser? echo and print.
+
+✅ * How does using single versus double quotation marks differ in creating printing strings? double quotation marks are interpreted, single quotation marks is litteral. 
+$var = ‘foo’;
+echo “$var”; // The value foo will be printed to the screen browser;
+echo ‘$var’ // The value foo won’t be printed. the screen will instead show $var
+
+✅ * What does it mean to escape a character in a string? Using backslash \ before a character so it won’t be interpreted, example:
+$fish_type = ‘gubbi’;
+echo “I got a new \“Fishbowl\” for my $fish_type fish. ”;
+echo ‘Michael didn\’t came to school today’;
+
+✅ * What are the three comment syntaxes in PHP?
+#single-line-comment, //single-line-comment, /*multi-line-comment*/
+✅ * Which one can be used over multiple lines? /*Multi-line-comment*/
+
+✅ * What characters do all variable names begin with? dollar sign $var_name
+
+✅ * What character can come next? letters and underscore (not numbers)
+
+✅ * What other character can be used in a variable’s name? 
+numbers, UPPERCASE and lowercase letters in combination to write better understandable variable names $var_name1 or $VarName1 (CamelCase)
+
+✅ * Are variable names case-sensitive or case-insensitive? 
+case-sensitive meaning $var1 and $VaR1 are different variables.
+
+✅ * What is the assignment operator? 
+To assign single value to a variable.
+
+✅ * How do you create a string variable? 
+<?php $var = ‘some text string’; ?>
+
+✅ * What is the concatenation operator? 
+To combine strings and variables.
+
+✅ * What is the concatenation assignment operator? 
+It’s a shorthand version. Instead of ($a = $a . $b;) we can use ($a .= $b;)
+
+✅ * How are constants defined and used?
+Constants cannot change.
+define(‘NAME’, ’Richard’);
+echo ‘Hello ’ . NAME;
+
+############################################################################
+## Chapter 1 - Review and Pursue
+#PURSUE
+ 
+✅ * If you don't already know-for certain- what version or PHP you're running check now.
+<?php phpinfo(); ?>
+
+✅ * Look up some of the mentioned string functions in the PHP manual. Then check out some of the other available string functions listed therein 
+
+echo — Output one or more strings. 
+https://www.php.net/echo
+echo ( string ...$expressions ) : void
+Outputs one or more expressions, with no additional newlines or spaces.
+
+print — Output a string
+https://www.php.net/print
+print ( string $expression ) : int
+Outputs one or more expressions, with no additional newlines or spaces.
+
+strlen — Get string length
+https://www.php.net/strlen
+strlen ( string $string ) : int
+Returns the length of the given string.
+
+strtolower — Make a string lowercase
+https://www.php.net/strtolower
+strtolower ( string $string ) : string
+Returns string with all alphabetic characters converted to lowercase.
+
+strtoupper — Make a string uppercase
+https://www.php.net/strtoupper
+strtoupper ( string $string ) : string
+Returns string with all alphabetic characters converted to uppercase.
+
+ucfirst — Make a string's first character uppercase
+https://www.php.net/ucfirst
+ucfirst ( string $string ) : string
+Returns a string with the first character of string capitalized, if that character is alphabetic.
+
+ucwords — Uppercase the first character of each word in a string
+https://www.php.net/ucwords
+ucwords ( string $string , string $separators = " \t\r\n\f\v" ) : string
+Returns a string with the first character of each word in string capitalized, if that character is alphabetic.
+
+✅ * Look up one of the mentioned number functions in the PHP manual. Then check out some of the others available number functions listed therein
+
+round — Rounds a float
+https://www.php.net/round
+round ( int|float $num , int $precision = 0 , int $mode = PHP_ROUND_HALF_UP ) : float
+Returns the rounded value of num to specified precision (number of digits after the decimal point). precision can also be negative or zero (default).
+
+number_format — Format a number with grouped thousands
+https://www.php.net/number_format
+number_format ( float $num , int $decimals = 0 , string|null $decimal_separator = "." , string|null $thousands_separator = "," ) : string
+Formats a number with grouped thousands and optionally decimal digits.
+
+sqrt — Square root
+https://www.php.net/sqrt
+sqrt ( float $num ) : float
+Returns the square root of num.
+
+Search the PHP manual for the $_SERVER variable to see what other information it contains
+$_SERVER — Server and execution environment information
+https://www.php.net/manual/en/reserved.variables.server.php
+$_SERVER is an array containing information such as headers, paths, and script locations. The entries in this array are created by the web server. There is no guarantee that every web server will provide any of these; servers may omit some, or provide others not listed here. That said, a large number of these variables are accounted for in the » CGI/1.1 specification, so you should be able to expect those.
+
+############################################################################
+## Chapter 2 - Review and Pursue
+## Review:
+
+✅ * What is the significance of a form’s method attribute? Of its action attribute?
+action="" dictates where the data is being sent to (url)
+method="" dictates how the data is sent to the handling page (url)
+method=”GET” is mostly used for retrieving data via url which can be bookmarked as a browserlink. 
+GET is less secure because data is exposed in the url.
+method=”POST” is used when an action is expected , updating of a database record, sending of an email.
+Another explanation from: https://www.w3schools.com/tags/att_form_method.asp
+The method attribute specifies how to send form-data (the form-data is sent to the page specified in the action attribute).
+The form-data can be sent as URL variables (with method="get") or as HTTP post transaction (with method="post").
+Notes on GET:
+Appends form-data into the URL in name/value pairs
+The length of a URL is limited (about 3000 characters)
+Never use GET to send sensitive data! (will be visible in the URL)
+Useful for form submissions where a user wants to bookmark the result
+GET is better for non-secure data, like query strings in Google
+Notes on POST:
+Appends form-data inside the body of the HTTP request (data is not shown in URL)
+Has no size limitations
+Form submissions with POST cannot be bookmarked
+
+✅ * Why must an HTML form that gets submitted to a PHP script be loaded through a URL?
+A PHP script must be loaded through a URL because the PHP script also runs through a URL.
+
+* What are the differences between using single and double quotation marks to delineate strings?
+Single quotation is literal echo ‘Hello Mark’;
+If you want to use variables in single quotation marks! You simply can’t.
+echo ’$var’; BAD!
+echo ‘hello’ . “$var”; GOOD!
+echo “$var”; GOOD!
+Double quotation is interpreted ex. echo “Hello $name”;
+
+✅ * What control structures were introduced in this chapter?
+if-elseif-else
+Logical operators and Comparison operators
+while loop, for loop
+
+✅ * What new variable type was introduced in this chapter?
+NULL
+Arrays
+
+✅ * What operator tests for equality
+https://www.php.net/manual/en/language.operators.comparison.php
+$a == $b
+true if $a is equal to $b after type juggling.
+
+
+⚠ # I need to research the following question:
+* Why are textual form elements validated using empty() but other form elements are validated using isset() ?.
+isset() on an empty string will test true.
+…. I don’t know the correct answer. I need to research this some more..
+
+* What is the difference between an indexed array and an associative array?
+indexed array [1,2,3,4...]
+associative array [key => value, key => value....]
+
+indexed array without keys:
+$array = array("foo", "bar", "hello", "world");
+
+Associative arrays with Key-Value pairs
+$array = array(
+    "foo" => "bar",
+    "foobar" => "barfoo"
+);
+$arrayVariable = array(
+    key1  => value1,
+    key2 => value2,
+    …..
+);
+
+✅ * With what value do indexed arrays begin (by default)?
+0
+
+✅ * If any indexed array has ten elements in it, what would the expected index be of the last element in the array?
+9
+
+✅ * What are superglobal arrays?
+Superglobals are built-in variables that are always available in all scopes.
+
+✅ * From where do the following superglobals get their values?
+$_GET gets it's value from a submitted HTML form with method="get".
+$_GET can also collect data sent in the URL.
+$_POST gets it's value from a submitted HTML form with method="get".
+$_COOKIE
+$_REQUEST
+$_SESSION
+$_SERVER
+$_ENV
+some of them I don't know where they get there value from!
+I need to research this.
+
+✅ * How can you print an individual indexed array item?
+✅ * How can you print an associative array item?
+Note: There is more than one answer to both  questions.
+indexed array:
+// Print an individual indexed array item in different ways
+$y = ['Bob', 'Charlie', 'John', 'Joey'];
+echo $y[0];
+echo '<br>';
+
+$limit = 0;
+for($x = 0; $x <= $limit; $x++) {
+  echo $y[$x];
+  echo '<br>';
+}
+
+$z = [ ['Janet', 'Maria', 'Christina'], ['Martin', 'Bryan', 'Kenneth'] ];
+echo $z[1][1]; 
+echo '<br>';
+
+$a = [3 => 'Q3', 'Q4', 'Q5'];
+echo $a[4];
+echo '<br>';
+
+$b = array(1 => 'item1', 'item2', 'item3', 'item4');
+echo $b[2];
+echo '<br>';
+
+$ten = range(1, 3);
+
+echo $ten[0];
+echo '<br>';
+
+// Print an associative array item in different ways
+// https://www.php.net/manual/en/language.types.array.php // Example #7 Accessing array elements
+$array = array(
+    "foo" => "bar",
+    42    => 24,
+    "multi" => array(
+         "dimensional" => array(
+             "array" => "foo"
+         )
+    )
+);
+echo '<pre>', var_dump($array["foo"]), '</pre>';
+echo '<pre>', var_dump($array[42]), '</pre>';
+echo '<pre>', var_dump($array["multi"]["dimensional"]["array"]), '</pre>';
+############################################################################
+✅ * What does the count() function do?
+https://www.php.net/count
+count — Count all elements in an array, or something in an object
+
+$g[0] = 1;
+$g[1] = 3;
+$g[2] = 5;
+$g[3] = 10;
+var_dump(count($g));
+
+$h[0]  = 7;
+$h[5]  = 9;
+$h[10] = 11;
+var_dump(count($h));
+############################################################################
+✅ * What impact does printing \n have on the browser?
+It will return the folling "something" to the next line in the browsers source code
+# Example:
+$someVar = "Her is something \nwe all can relate to";
+echo $someVar;
+echo "<br>\n";
+echo 'Her is something 
+we all can relate to';
+# Example - End of
+The example above will print the following in a browsers source code:
+Her is something 
+we all can relate to<br>
+Her is something 
+we all can relate to
+############################################################################
+✅ * Generally speaking, when would you use a while loop?
+When retrieving result from a database. When something is true and unkown number of times.
+
+✅ * When would you use a for loop?
+Most of the time. For doing something a known number of times.
+
+✅ * When would you use a foreach loop?
+When I whant to iterate over arrays.
+
+✅ * What is the syntax of each loop type?
+
+// While loop:
+while (condition) {
+    // Do somthing.
+}
+$foo = 0;
+while($foo < 10){
+    $foo++;
+    echo "$foo\n";
+}
+// For loop:
+for (initial expression; condition; closing expression) {
+    // Do somthing.
+}
+for ($i = 0; $i < 10 ; $i++) { 
+    echo "$i<br>\n";
+}
+// Foreach loop.
+foreach (iterable_expression as $value) {
+    statement
+}
+// or..
+foreach (iterable_expression as $key => $value){
+    statement
+}
+$age = array("Peter"=>"35", "Ben"=>"37", "Joe"=>"43");
+
+foreach($age as $x => $val) {
+  echo "$x = $val<br>";
+}
+############################################################################
+✅ * What is the ++ operator? What does it do?
+The ++ operator is an increment operatro to increment something. example:
+$num = 1;
+$num++;
+echo $num; // prints the number 2
+// ++ is the same as
+$num++;
+$num = $num + 1;
+############################################################################
+## Chapter 2 - Review and Pursue
+## Pursue
+
+
+✅ * What version of PHP are you using? If you don't know, find out.
+<?php phpinfo(); ?>
+PHP Version 7.4.20
+
+✅ * Create a new form that takes some input from the user 
+(perhaps base it on a form you know you'll need for one of your projects).
+Then create a php script that validates the form data and reports upon the result
+:) LOOK IN FOLDER /loencalc/boot.html and /loencalc/loenform_handler.php
+
+✅ * Rewrite the gender condition in handle_form.html(Script 2.4) 
+as one condition instead of two nested ones. Hint: You'll need
+to use the AND operator.
+look in: /phpmysqlvqp-5e-book-prog/phpmysqlsq-5ed-poul/ch2/script_2_4/handle_form.php
+HELP: https://stackoverflow.com/questions/24958325/how-do-i-rewrite-this-conditional-as-one-conditional-instead-of-two-nested-ones
+
+✅ * Rewrite handle_form.php (Script 2.4) to use $_POST instead of $_REQUEST.
+look in: /phpmysqlvqp-5e-book-prog/phpmysqlsq-5ed-poul/ch2/script_2_4/handle_form.php
+
+✅ * Rewrite handle_form.php (Script 2.4) so that it validates the age element.
+Hint: Use the $gender validation as a template, this time checking against
+look in: /phpmysqlvqp-5e-book-prog/phpmysqlsq-5ed-poul/ch2/script_2_4/handle_form.php
+the corresponding pull-down option values (0-29, 30-60, 60+)
+
+✅ * Rewrite the echo statement in the final version of handle_form.php(Script 2.5)
+so that it uses 
+single quotation marks and concatenation instead of 
+double quotation marks and concatenation marks.
+look in: /phpmysqlvqp-5e-book-prog/phpmysqlsq-5ed-poul/ch2/script_2_4/handle_form.php
+
+✅ * If your using PHP 7 or later, change some of the conditionals to use the NULL coalescing operator instead.
+Look in: \phpmysqlvqp-5e-book-prog\phpmysqlsq-5ed-poul\ch2\script_2_3\handle_form.php
+
+✅ * Lookup in the PHP manual one of the array function introduced in this book.
+Then check out some of the others array-related function built into the langauge.
+https://www.php.net/manual/en/ref.array.php
+
+// ksort — Sort an array by key in ascending order
+/phpmysqlsq-5ed-poul/tests/ksort.php
+
+// array_sum — Calculate the sum of values in an array
+/phpmysqlsq-5ed-poul/tests/array_sum.php
+
+// array_map — Applies the callback to the elements of the given arrays
+/phpmysqlsq-5ed-poul/tests/array_sum.php
+
+✅ * Create a new array and then display its elements.
+Sort the array in different ways and then display the arrays content again.
+/phpmysqlsq-5ed-poul/tests/array_in_different_ways.php
+
+✅ * Create a form that contains a selectmenu or series of check boxes that allow
+for multiple sections.
+Then, in the handling PHP script, display the selected items along with
+a count of howe many the user selected.
+/phpmysqlvqp-5e-book-prog/phpmysqlsq-5ed-poul/tests/checkbox/checkbox_form.php
+
+✅ * For added complexity, take the suggested PHP you just created
+(that handles multiple selections), and have it display the selections
+in alphabetical order.
+/phpmysqlvqp-5e-book-prog/phpmysqlsq-5ed-poul/tests/checkbox/checkbox_form.php
+
+✅ * Learn about validation in HTML5.
+This can provide a nicer user experience but does not replace server-side
+validation, which is always required as client-side validtion is easily circumvented.
+
+############################################################################
+## Chapter 3 - Review and Pursue
+## Review
+
+✅ * What is and absolute path? An absolute path is a directory in your computer like:
+C:\xampp\htdocs\phpmysqlvqp-5e-book-prog\phpmysqlvqp-5ed-master\ch08\report_errors.php
+What is a relative path?
+A relative path is relative to the same folder as the PHP script is in.
+A relative path will remain accurate, even if the site is moved to another server,
+as long as the files maintain their current relationship to each other.
+
+✅ * what si the difference between include() and require()
+include() when fail it prints warning but site continues.
+require() when fail it prints warning but site i halted.
+https://www.php.net/include
+The include construct will emit an E_WARNING if it cannot find a file; this is different behavior from require, which will emit an E_ERROR.
+
+✅ * Why does it not matter what extesion is used for an include file?
+
+✅ * What is the signifiance of the $_SERVER['REQUEST_METHOD'] value? 
+$_SERVER is a PHP super global variable which holds information about headers, paths, and script locations.
+
+https://www.w3schools.com/Php/php_superglobals_server.asp
+$_SERVER['REQUEST_METHOD']  Returns the request method used to access the page (such as POST)
+
+✅ * How do you make the following element sticky?
+Text input
+<input type="number" name="distance" value="<?php if (isset($_POST['distance'])) echo $_POST['distance']; ?>">
+
+Select menu
+<p>Fuel Efficiency: <select name="efficiency">
+    <option value="10"<?php if (isset($_POST['efficiency']) && ($_POST['efficiency'] == '10')) echo ' selected="selected"'; ?>>Terrible</option>
+    <option value="20"<?php if (isset($_POST['efficiency']) && ($_POST['efficiency'] == '20')) echo ' selected="selected"'; ?>>Decent</option>
+    <option value="30"<?php if (isset($_POST['efficiency']) && ($_POST['efficiency'] == '30')) echo ' selected="selected"'; ?>>Very Good</option>
+    <option value="50"<?php if (isset($_POST['efficiency']) && ($_POST['efficiency'] == '50')) echo ' selected="selected"'; ?>>Outstanding</option>
+</select></p>
+
+Radio button
+<input type="radio" name=myradio value="2" <?php if (isset($_POST['myradio']) && ($_POST['myradio'] == 'myradio')) {echo ' checked';} ?>>myradio
+
+Check box
+<input type="checkbox" name="vehicle3" value="Boat"<?php if (isset($_POST['vehicle3']) && ($_POST['vehicle3'] == 'vehicle3')) {echo ' checked';} ?>>vehicle3
+
+Textarea
+<textarea id="msg" name="msg" rows="4" cols="50"><?php if (isset($_POST['msg']) && ($_POST['msg'] == 'msg')) {echo $_POST['msg'];} ?></textarea>
+
+✅ * If you have a PHP error caused by code placed within an HTML tag,
+where must you look to find the error message?
+In the browsers source code.
+
+✅ * what is the syntax for defining your own function?
+    function functionName() {
+        // Do something with $x;    
+    }
+    functionNme();
+
+✅ * What is the syntax for defining a funnction that takes arguments?
+    function functionName($x) {
+        // Do something with $x;    
+    }
+    functionNme('pass this string to $x argument');
+
+
+
+✅ * What is the syntax for defining a function that takes arguments with default values?
+How do default values impact how the function can be called? 
+
+    // https://www.php.net/manual/en/functions.arguments.php#functions.arguments.default
+    Note that when using default arguments, any defaults 
+    should be on the right side of any non-default arguments; 
+    otherwise, things will not work as expected. 
+    Consider the following code snippet:
+
+    <?php
+    function makecoffee($type = "cappuccino")
+    {
+        return "Making a cup of $type.\n";
+    }
+    echo makecoffee();
+    echo makecoffee(null);
+    echo makecoffee("espresso");
+    ?>
+
+    The above example will output:
+
+    Making a cup of cappuccino.
+    Making a cup of .
+    Making a cup of espresso.
+
+    Example #7 Incorrect usage of default function arguments
+    <?php
+    function makeyogurt($type = "acidophilus", $flavour)
+    {
+        return "Making a bowl of $type $flavour.\n";
+    }
+
+    echo makeyogurt("raspberry");   // won't work as expected
+    ?>
+
+    The above example will output:
+    
+    Warning: Missing argument 2 in call to makeyogurt() in 
+    /usr/local/etc/httpd/htdocs/phptest/functest.html on line 41
+    Making a bowl of raspberry .
+
+✅ * How do you defineand call a function that return a value?
+I thought i was hard to grasp so I search the internet and found this
+/phpmysqlvqp-5e-book-prog/phpmysqlsq-5ed-poul/tests/function-return-value.php
+
+
+############################################################################
+## Chapter 2 - Review and Pursue
+## Pursue
+
+✅ * Creaate a new HTML template for the pages in this chapter.
+Use that new template as the basis for new header and footer file.
+By doing so, you should be able to change the look of the entire site
+without modifying any of the PHP scripts.
+http://localhost/phpmysqlvqp-5e-book-prog/phpmysqlsq-5ed-poul/ch3/pursue-template/index.php
+
+✅ * Create a new form 
+an give it the ability to be "sticky"(remember).
+Have the from use a textarea and check box 
+(neither of which) is demonstrated in this book.
+http://localhost/phpmysqlvqp-5e-book-prog/phpmysqlsq-5ed-poul/ch3/pursuetemplate/sticky-clean.php
+
+✅ * Change calculator.php so that it uses 
+a constant in lieu of hard-coded average speed 65.
+(As written, the average speed is a "magic number"
+-a value used in a script without explanation.)
+
+✅ * Better yet, modify calculator.php so that 
+the user can enter average speed or 
+select it from a list of options.
+http://localhost/phpmysqlvqp-5e-book-prog/phpmysqlsq-5ed-poul/ch3/calculator.php
+
+✅ * Update the output of calculator.php so that 
+it displays the number of days and hours the trip will take 
+when the number of hours is greather than 24.
+http://localhost/phpmysqlvqp-5e-book-prog/phpmysqlsq-5ed-poul/ch3/calculator.php
+
+✅ * As a more advanced trick, rewrite calculator.php 
+so that the create_radio() function call is in the script 
+only once but still creates three radio buttons. 
+Hint: Use loop.
+
+✅ * If you'r using PHP 7 or greater, 
+update the function definitions to 
+use parameter and return type declorations. 
+(See the "PHP 7 New Functions Features" 
+sidebar and PHP manual for details.)
+
+✅ * Learn more about Bootstap framework 
+to better stylize the calculator form.
+
+############################################################################
+## Chapter 4 - Review and Pursue
+## Review
+
+✅ * What version of MySQL are you using?
+https://dev.mysql.com/downloads/connector/php-mysqlnd/
+mysqlnd 7.4.20
+
+
+
+If you don't know find out now!
+C:\Users\weng->c:/xampp/mysql/bin/mysql --version
+c:/xampp/mysql/bin/mysql Ver 15.1 Distrib 10.4.19-MariaDB, for Win64 (AMD64), source revision a4139f8d68bd31e80ff6202c093cd232c194ddfd
+
+http://localhost/phpmyadmin/index.php
+Database server
+Server: 127.0.0.1 via TCP/IP
+Server type: MariaDB
+Server connection: SSL is not being used Documentation
+Server version: 10.4.19-MariaDB - mariadb.org binary distribution
+Protocol version: 10
+User: root@localhost
+Server charset: UTF-8 Unicode (utf8mb4)
+
+******** START FROM HERE ********
+
+✅ * what characters can be used in database, table, and column names?
+
+    * Should only contain letters, numbers, and the underscore (no spaces).
+    * Should not be the same as an existing keyword (like an SQL term or a function name).
+    * Should be treated as case-sensitive.
+    * Cannot be longer than 64 characters (approximately).
+    * This last rule means that a table cannot have 
+    two columns with the same name and 
+    a database cannot have two tables the same name.
+    You can, however, use the same column name 
+    in two different tables in the same database; in fact you often wil do.
+
+
+✅ * Should you treat database, table, and column names 
+as case-sensitive or case-insensitive?
+
+    * Best to treat them as case-sensitive and use lowercase letters.
+
+✅ * What are the three column types?
+
+    * Text(strings).
+    * Numbers.
+    * Dates and times.
+
+✅ * What are the differences between CHAR and VARCHAR?
+    See page 118.
+    "cat" takes 4 bytes of space in VARCHAR(10).
+    "cat" takes 10 byte of space in CHAR(10).
+    * VARCHAR requires less disk space than CHAR.
+
+✅ * How do you determine what size 
+(in terms of subtype or length) a column should be?
+
+    * user_id - It depends because MEDIUMINT can hold up 
+    16,777,215 unsigned numbers 
+    and if you want to scale up to more than 16,777,215 users on your web app
+    I would think you either split user table up into mutiple user_table_id
+    or you could use INT instad of MEDIUMINT.
+    INT can hold 4,294,967,295. 4 billion
+    But.. I don't think I woud have one huge long table with 16,777,215 user_id
+    because I think it would take too long time to search through it when handling users.
+
+    TABLE 4.6 users Table
+    Column name         Type
+    user_id             MEDIUMINT UNSIGNED  NOT NULL    PRIMARY KEY AUTO_INCREMENT
+    first_name          VARCHAR(20)         NOT NULL
+    last_name           VARCHAR(40)         NOT NULL
+    email               VARCHAR(60)         NOT NULL
+    pass                CHAR(128)           NOT NULL
+    registration_date   DATETIME            NOT NULL
+
+✅ * What are some of the other properties that can be assign to columns?
+
+    * UNSIGNED
+    * PRIMARY KEY
+    * AUTO_INCREMENT
+    * NOT NULL
+
+✅ * What is a primary key?
+
+    * A Table's primary key is an artificial way to refer to a record and must abide by three rules:
+
+        1. It must always have a value.
+        2. That value must never change.
+        3. That valust must be unique for each record in the table
+
+    * PRIMARY KEY uses AUTO_INCREMENT to index (improve performence) 
+
+✅ * If you're using the command-line mysql client to connect to 
+MySQL what username and password combination is required?
+
+    * mysql -u username -h hostname -p password
+    c:/xampp/mysql/bin/mysql -u root -p
+
+############################################################################
+## Chapter 4 - Review and Pursue
+## Pursue
+
+✅ * Find the online MySQL manual for your version of MySQL
+    https://mariadb.com/
+    https://dev.mysql.com/doc/refman/8.0/en/
+
+******** START FROM HERE ********
+
+✅ * Star thinking about what databases you may need for your projects.
+
+✅ * If your haven't yet changed the MySQL root user password 
+(assuming you've install MySQL on your own computer), 
+use instructions in Appendix A to do so.
+http://localhost/phpmyadmin/doc/html/setup.html#securing-your-phpmyadmin-installation
+
+    * On XAMPP controlpanel clik the Apahe Config button and choose phpMyAdmin (config.inc.php)
+    * Once the config.inc.php is open go the line where is says:
+        $cfg['Servers'][$i]['auth_type'] = 'cookie';
+        $cfg['blowfish_secret'] = 'xampp'; /* YOU SHOULD CHANGE THIS FOR A MORE SECURE COOKIE AUTH!
+    * You can read more about it at: 
+    https://docs.phpmyadmin.net/en/latest/config.html
+    https://dev.mysql.com/downloads/connector/php-mysqlnd/
+    https://www.youtube.com/watch?v=IEbGskM54wI
+    https://mariadb.com/
+
+############################################################################
+## Chapter 5 - Review and Pursue
+## Review
+
+✅  * What version of MySQL are you using?
+If you don't know, find out now.
+
+    // XAMPP Shell:
+    # mysql --version
+    mysql  Ver 15.1 Distrib 10.4.19-MariaDB, for Win64 (AMD64)
+    https://mariadb.com/kb/en/mariadb-10419-release-notes/
+
+    simply.com phpMyAdmin SQL. SELECT VERSION(); 
+    5.7.34-37-log
+    https://mysql.simply.com/doc/html/index.html
+    https://dev.mysql.com/doc/extending-mysql/5.7/en/
+    https://dev.mysql.com/doc/refman/5.7/en/
+    https://dev.mysql.com/doc/refman/5.7/en/
+    https://dev.mysql.com/doc/refman/5.7/en/
+    https://dev.mysql.com/doc/refman/5.7/en/
+    https://dev.mysql.com/doc/refman/5.7/en/
+    https://dev.mysql.com/doc/refman/5.7/en/
+
+✅  * What SQL command is used to make a new database?
+What command is used to make a new tabel in a database?
+
+    CREATE DATABASE yourdatabasename;
+
+✅  * What SQL command is used to select the database with which you want to work?
+
+    USE yourdatabasename;
+
+✅  * What SQL command are used for adding records to tabel? Hint: There are mutiple options.
+
+    // First choose columns then insert value to those columns.
+    INSERT INTO tablename (column1, column2 ..) VALUES ('value1', value2..);
+    INSERT INTO tablename (column4, column8) VALUE (valueX, valueY);
+    // Insert values directly without specifying column names but include values for all columns.
+    INSERT INTO tablename VALUE ('value1', NUL, 'value2', 'value3');
+    // Insert mutiple rows
+    INSERT INTO tablename (column1, column4) VALUES 
+    ('valueA', 'valueB'),
+    ('valueC', 'valueD'),
+    ('valueE', 'valueF');
+
+✅  * What type of value must be quaoted in queries?
+What type of values shouldn't be quoted?
+
+    Strings must always be qouted.
+    Numbers and functions should not be qouted.
+
+✅  * What does the asterisk in "SELECT * FROM table" mean?
+
+    Retrieve every column from that table.
+
+How do you restrict which column are returned by a query?
+
+    // You specifie each column-name instead of using axterisk.
+    SELECT column1, column2, column3 FROM table
+
+✅  * What does the NOW() function do?
+
+    Populating date, time and timestamp in cloumns.
+    INSERT INTO users (first_name, last_name, email, pass, registration_date) VALUES
+    ('John', 'Lennon', 'john@beatles.com', SHA2('Happin3ss', 512), NOW());
+
+    Returned the current date and time on the server.
+    // XAMPP for Windows 7.4.20
+    MariaDB [sitename]> SELECT NOW();
+    +---------------------+
+    | NOW()               |
+    +---------------------+
+    | 2021-06-28 06:08:05 |
+    +---------------------+
+    1 row in set (0.000 sec)
+
+
+✅  * How do restrict which rows are returned by a query?
+
+    SELECT * FROM tablename LIMIT X
+    SELECT * FROM tablename LIMIT 3
+    SELECT * FROM tablename LIMIT X, Y
+    // Return 11 to 20
+    SELECT * FROM tablename LIMIT 10, 20
+    SELECT wich_columns FROM tablename WHERE condition ORDER BY column LIMIT x
+    SELECT first_name, last_name FROM users ORDER BY registration_date DESC LIMIT 5;
+
+
+✅  * How do you LIKE and NOT LIKE differ from simple equality comparisons?
+
+    https://dev.mysql.com/doc/refman/5.7/en/pattern-matching.html
+    
+    To find names beginning with b:
+    mysql> SELECT * FROM pet WHERE name LIKE 'b%';
+
+    To find names ending with fy:
+    mysql> SELECT * FROM pet WHERE name LIKE '%fy';
+
+    To find names containing a w:
+    mysql> SELECT * FROM pet WHERE name LIKE '%w%';
+
+    To find names containing exactly five characters, use five instances of the _ pattern character:
+    mysql> SELECT * FROM pet WHERE name LIKE '_____';
+
+    NOT LIKE is the same but reversed (rule out instead of find)
+
+Which type of comparison will be faster?
+
+    TIP: Queries with LIKE conditional are generally slower because the can't take advantage of indexes. Use LIKE and NOT LIKE only if you absolutely hav to.
+
+What are the two LIKE and NOT LIKE wildcard characters?
+
+    % and _
+
+✅  * How do you affect the sorting of the returned records?
+    
+    By using wildcards (% and _), LIMIT, sorting ASC, DESC, ORDER BY.
+
+What is the default sorting method?
+
+    Meaningless order.
+
+How do you invers the sort?
+
+    SELECT * FROM SomeTable WHERE id < 6 ORDER BY id DESC LIMIT 4,1
+
+How is the syntax for sorting by mutiple columns?
+
+    SELECT * FROM tablename ORDER BY column1, column2
+
+✅  * What does the LIMIT clause do?
+
+    Limits how many records to return.
+
+How does LIMIT x differ from LIMIT x, y?
+
+    Limits how many records to return after x until y number of records .
+    SELECT * FROM tablename LIMIT 10, 10;
+    Will return records from 11 to 20
+
+✅  * What SQL command is used to change the values already stored in a table?
+
+    UPDATE tablename SET column=value
+
+How do you change mutiple columns at once?
+
+    UPDATE tablename SET column1=valueA, column5=valueB..
+
+How do you restrict to which rows the changes are applied?
+
+    UPDATE users SET WHERE users_id = 18 LIMIT 1;
+
+✅  * What SQL command is used to delete rows stored in a table?
+
+    DELETE column1 FROM tablename;
+
+How do you restict which rows the deletions are applied?
+
+    DELETE FROM tablename WHERE condition;
+    DELETE FROM users     WHERE user_id = 8 LIMIT 1; 
+
+✅  * What is an SQL alias?
+
+    An alias is merely a symbolic renaming of an item used in a query, normally applied to tables, columns or function call. Aliases are created using the term AS:
+
+How do you create one?
+
+    SELECT CONCAT(last_name,', ',first_name) AS full_name FROM mytable ORDER BY full_name;
+
+Why is an alies useful?
+
+    DRY Don't Repeat Yourself - It a short refference name. It's kind of a shortcut. 
+
+############################################################################
+## Chapter 5 - Review and Pursue
+## Pursue
+
+* If you haven't done so already, bookmark the version of the MySQL manual that matches the version of MySQL you are running.
+
+    // MySQL 5.7 most common in Denmark web servers
+    https://dev.mysql.com/doc/refman/5.7/en/
+    // XAMPP use mariaDB close related and follows the MySQL community Edition.
+    https://mariadb.com/kb/en/documentation/
+
+* Go through each of the steps sequences in this chapter again, coming up with your own queries
+to execute (that demonstrate similar concepts as those in the steps).
+
+
+
+* Check out the MySQL manual pages for some of the MySQL's functions.
+
+* Do some more pratice using functions and alieses.
+
+* Check out the MySQL manual pages for the various date and time types.
+Also check out ADDDATE() andother date-related functions.

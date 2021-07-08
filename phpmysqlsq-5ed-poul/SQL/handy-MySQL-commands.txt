@@ -1,0 +1,184 @@
+# Most commen MySQL command
+Poul Lynge Larsen
+
+mysql -u username -p
+
+USE databsename;
+
+SHOW TABLES;
+
+SHOW COLUMNS FROM tablename;
+
+
+--------------------------------------------------------------------------------
+# Handy MySQL commands
+
+# https://linuxize.com/post/how-to-check-mysql-version/
+
+
+## From the Command Line
+
+--------------------------------------------------------------------------------
+mysqld --version
+
+# The command will output information about the MySQL version and exit. In this example the version of the MySQL server is 10.4.19-MariaDB 
+
+2021-06-30  9:30:47 0 [Note] Using unique option prefix 'key_buffer' is error-prone and can break in the future. Please use the full name 'key_buffer_size' instead.
+mysqld  Ver 10.4.19-MariaDB for Win64 on AMD64 (mariadb.org binary distribution)
+--------------------------------------------------------------------------------
+
+mysqladmin -V
+
+mysqladmin  Ver 9.1 Distrib 10.4.19-MariaDB, for Win64 on AMD64
+--------------------------------------------------------------------------------
+
+## From the MySQL Shell
+
+mysql -u username -p
+Enter passsword: ***********
+
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 81
+Server version: 10.4.19-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+--------------------------------------------------------------------------------
+
+SHOW VARIABLES LIKE "%version%";
+
++-----------------------------------+------------------------------------------+
+| Variable_name                     | Value                                    |
++-----------------------------------+------------------------------------------+
+| in_predicate_conversion_threshold | 1000                                     |
+| innodb_version                    | 10.4.19                                  |
+| protocol_version                  | 10                                       |
+| slave_type_conversions            |                                          |
+| system_versioning_alter_history   | ERROR                                    |
+| system_versioning_asof            | DEFAULT                                  |
+| tls_version                       | TLSv1.1,TLSv1.2,TLSv1.3                  |
+| version                           | 10.4.19-MariaDB                          |
+| version_comment                   | mariadb.org binary distribution          |
+| version_compile_machine           | x64                                      |
+| version_compile_os                | Win64                                    |
+| version_malloc_library            | system                                   |
+| version_source_revision           | a4139f8d68bd31e80ff6202c093cd232c194ddfd |
+| version_ssl_library               | WolfSSL 4.6.0                            |
++-----------------------------------+------------------------------------------+
+
+--------------------------------------------------------------------------------
+
+SELECT VERSION();
+
++-----------------+
+| VERSION()       |
++-----------------+
+| 10.4.19-MariaDB |
++-----------------+
+1 row in set (0.000 sec)
+
+--------------------------------------------------------------------------------
+
+STATUS;
+
+--------------
+mysql  Ver 15.1 Distrib 10.4.19-MariaDB, for Win64 (AMD64), source revision a4139f8d68bd31e80ff6202c093cd232c194ddfd
+
+Connection id:          81
+Current database:
+Current user:           poul@localhost
+SSL:                    Not in use
+Using delimiter:        ;
+Server:                 MariaDB
+Server version:         10.4.19-MariaDB mariadb.org binary distribution
+Protocol version:       10
+Connection:             localhost via TCP/IP
+Server characterset:    utf8mb4
+Db     characterset:    utf8mb4
+Client characterset:    utf8mb4
+Conn.  characterset:    utf8mb4
+TCP port:               3306
+Uptime:                 5 hours 18 min 23 sec
+
+Threads: 6  Questions: 536  Slow queries: 0  Opens: 41  Flush tables: 1  Open tables: 34  Queries per second avg: 0.028
+--------------
+--------------------------------------------------------------------------------
+
+Using PHP
+
+<?php
+
+// Create a database connection.
+$link = mysqli_connect("localhost", "my_user", "my_password");
+
+// Print the MySQL version.
+echo mysqli_get_server_info($link);
+
+// Close the connection.
+mysqli_close($link);
+
+?>
+--------------------------------------------------------------------------------
+
+SHOW VARIABLES LIKE 'CHARACTER%';
+
++--------------------------+--------------------------------+
+| Variable_name            | Value                          |
++--------------------------+--------------------------------+
+| character_set_client     | utf8mb4                        |
+| character_set_connection | utf8mb4                        |
+| character_set_database   | utf8                           |
+| character_set_filesystem | binary                         |
+| character_set_results    | utf8mb4                        |
+| character_set_server     | utf8mb4                        |
+| character_set_system     | utf8                           |
+| character_sets_dir       | C:\xampp\mysql\share\charsets\ |
++--------------------------+--------------------------------+
+8 rows in set (0.001 sec)
+
+--------------------------------------------------------------------------------
+
+SHOW VARIABLES LIKE 'collation%';
+
++----------------------+--------------------+
+| Variable_name        | Value              |
++----------------------+--------------------+
+| collation_connection | utf8mb4_general_ci |
+| collation_database   | utf8_general_ci    |
+| collation_server     | utf8mb4_general_ci |
++----------------------+--------------------+
+3 rows in set (0.001 sec)
+
+--------------------------------------------------------------------------------
+
+STATUS;
+
+mysql  Ver 15.1 Distrib 10.4.19-MariaDB, for Win64 (AMD64), source revision a4139f8d68bd31e80ff6202c093cd232c194ddfd
+
+Connection id:          81
+Current database:
+Current user:           poul@localhost
+SSL:                    Not in use
+Using delimiter:        ;
+Server:                 MariaDB
+Server version:         10.4.19-MariaDB mariadb.org binary distribution
+Protocol version:       10
+Connection:             localhost via TCP/IP
+Server characterset:    utf8mb4
+Db     characterset:    utf8mb4
+Client characterset:    utf8mb4
+Conn.  characterset:    utf8mb4
+TCP port:               3306
+Uptime:                 5 hours 18 min 23 sec
+
+Threads: 6  Questions: 536  Slow queries: 0  Opens: 41  Flush tables: 1  Open tables: 34  Queries per second avg: 0.028
+--------------
+
+# Convert utf8 to utf8mb4 (UTF8)
+
+https://adamhooper.medium.com/in-mysql-never-use-utf8-use-utf8mb4-11761243e434
+https://dba.stackexchange.com/questions/8239/how-to-easily-convert-utf8-tables-to-utf8mb4-in-mysql-5-5
+
+# From phpMyAdmin panel under "Operations"
+ALTER TABLE tablename DEFAULT CHARSET=utf8mb4 COLLATE utf8mb4_general_ci;
