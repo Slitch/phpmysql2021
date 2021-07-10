@@ -1,0 +1,4 @@
+# Mac osx 2021
+// Change directory to xampp htdocs folder
+
+# cd ~/.bitnami/stackman/machines/xampp/volumes/root/htdocs

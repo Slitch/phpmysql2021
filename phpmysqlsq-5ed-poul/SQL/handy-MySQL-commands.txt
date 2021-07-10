@@ -9,6 +9,10 @@ SHOW TABLES;
 
 SHOW COLUMNS FROM tablename;
 
+SELECT * FROM tablename;
+
+SELECT column1, column2, columns3.. FROM tablename;
+
 
 --------------------------------------------------------------------------------
 # Handy MySQL commands
