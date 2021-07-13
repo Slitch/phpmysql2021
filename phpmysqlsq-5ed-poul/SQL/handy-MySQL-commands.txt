@@ -15,6 +15,24 @@ SELECT column1, column2, columns3.. FROM tablename;
 
 
 --------------------------------------------------------------------------------
+Change CHARACTER SET & COLLATE (utf8mb4)
+ALTER DATABASE dbname CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+
+--------------------------------------------------------------------------------
+# DB current character encoding set
+### display the current character encoding set for a particular database,
+Replace dbname with the database name:
+
+SELECT default_character_set_name FROM information_schema.SCHEMATA S WHERE schema_name = "dbname";
+
+--------------------------------------------------------------------------------
+# TB current character encoding set
+### display the current character encoding set for a particular table in a database.
+Replace dbname with the database name, and tablename with the name of the table
+
+SELECT CCSA.character_set_name FROM information_schema.`TABLES` T,information_schema.`COLLATION_CHARACTER_SET_APPLICABILITY` CCSA WHERE CCSA.collation_name = T.table_collation AND T.table_schema = "dbname" AND T.table_name = "tablename";
+
+--------------------------------------------------------------------------------
 # Handy MySQL commands
 
 # https://linuxize.com/post/how-to-check-mysql-version/
