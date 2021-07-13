@@ -13,11 +13,12 @@ SELECT * FROM tablename;
 
 SELECT column1, column2, columns3.. FROM tablename;
 
-
+https://www.a2hosting.com/kb/developer-corner/mysql/convert-mysql-database-utf-8
 --------------------------------------------------------------------------------
 Change CHARACTER SET & COLLATE (utf8mb4)
 ALTER DATABASE dbname CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 
+https://www.a2hosting.com/kb/developer-corner/mysql/convert-mysql-database-utf-8
 --------------------------------------------------------------------------------
 # DB current character encoding set
 ### display the current character encoding set for a particular database,
@@ -25,6 +26,7 @@ Replace dbname with the database name:
 
 SELECT default_character_set_name FROM information_schema.SCHEMATA S WHERE schema_name = "dbname";
 
+https://www.a2hosting.com/kb/developer-corner/mysql/convert-mysql-database-utf-8
 --------------------------------------------------------------------------------
 # TB current character encoding set
 ### display the current character encoding set for a particular table in a database.
@@ -36,7 +38,6 @@ SELECT CCSA.character_set_name FROM information_schema.`TABLES` T,information_sc
 # Handy MySQL commands
 
 # https://linuxize.com/post/how-to-check-mysql-version/
-
 
 ## From the Command Line
 
